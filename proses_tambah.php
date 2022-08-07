@@ -6,14 +6,21 @@ $kd_customer = $_POST['kd_customer'];
 $tgl_pinjam = $_POST['tgl_pinjam'];
 $tgl_kembali = $_POST['tgl_kembali'];
 
+// var_dump(mysqli_error($koneksi));
+// die;
 // var_dump($kd_mobil);
+// var_dump(mysqli_fetch_assoc($querymobil));
+// die;
 $querymobil = mysqli_query($koneksi, "SELECT * FROM mobil WHERE kd_mobil = '$kd_mobil'");
-while ($mobil = mysqli_fetch_assoc($querymobil)) {
-    $stok = $mobil['stok'];
+if (mysqli_num_rows($querymobil)) {
+    while ($mobil = mysqli_fetch_assoc($querymobil)) {
+        $stok = $mobil['stok'];
+    }
 }
 
+
 if ($stok == 0) {
-    echo "ga ke kirim?";
+    // echo "ga ke kirim?";
     // echo "<script>alert('Stok Kosong, Pilih Mobil Lain!'); location.href = 'tambah.php'; </script>";
 } else if ($tgl_pinjam > $tgl_kembali) {
     echo "<script>alert('Format Tanggal Salah!'); location.href = 'tambah.php'; </script>";
