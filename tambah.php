@@ -1,10 +1,11 @@
 <?php
 include "koneksi.php";
 session_start();
-$sql = "SELECT * FROM mobil WHERE NOT stok = '0'";
-$query = mysqli_query($koneksi, $sql);
-$sql2 = "SELECT * FROM cusstomer";
-$query2 = mysqli_query($koneksi, $sql2);
+$getAvailableCars = "SELECT * FROM mobil WHERE stok > 0";
+$availableCars = mysqli_query($koneksi, $getAvailableCars);
+
+$getCustomers = "SELECT * FROM cusstomer";
+$customers = mysqli_query($koneksi, $getCustomers);
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +29,8 @@ $query2 = mysqli_query($koneksi, $sql2);
             <br><select class="form-select" name="kd_mobil" id="kd_mobil">
                 <option value="">-- Pilih Jenis Mobil --</option>
                 <?php
-                while ($mobil = mysqli_fetch_assoc($query)) { ?>
-                    <option value=""><?= $mobil['kd_mobil'] ?><?= strtoupper($mobil['jenis_mobil']) ?></option>
+                while ($mobil = mysqli_fetch_assoc($availableCars)) { ?>
+                    <option value="<?= $mobil['kd_mobil'] ?>"><?= $mobil['kd_mobil'] ?><?= strtoupper($mobil['jenis_mobil']) ?></option>
                 <?php }
                 ?>
             </select><br>
@@ -38,8 +39,8 @@ $query2 = mysqli_query($koneksi, $sql2);
             <br><select class="form-select" name="kd_customer" id="kd_customer">
                 <option value="">-- Pilih Nama Customer --</option>
                 <?php
-                while ($cusstomer = mysqli_fetch_assoc($query2)) { ?>
-                    <option value=""><?= $cusstomer['kd_customer'] ?><?= strtoupper($cusstomer['nama']) ?></option>
+                while ($cusstomer = mysqli_fetch_assoc($customers)) { ?>
+                    <option value="<?= $cusstomer['kd_customer'] ?>"><?= $cusstomer['kd_customer'] ?><?= strtoupper($cusstomer['nama']) ?></option>
                 <?php }
                 ?>
             </select><br>
