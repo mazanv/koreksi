@@ -1,6 +1,6 @@
 <?php
 include "koneksi.php";
-$sql = "SELECT * FROM mobil WHERE NOT stok = '0'";
+$sql = "SELECT * FROM mobil WHERE stok > 0";
 $query = mysqli_query($koneksi, $sql);
 $sql2 = "SELECT * FROM cusstomer";
 $query2 = mysqli_query($koneksi, $sql2);
